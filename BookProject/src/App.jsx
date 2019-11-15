@@ -1,4 +1,4 @@
-const issues = [
+const initialIssues = [
     {
         id: 1, status: 'New', owner: 'Ravan', effort: 5,
         created: new Date('2018-08-15'), due: undefined,
@@ -20,10 +20,12 @@ class IssueFilter extends React.Component {
 }
 
 class IssueTable extends React.Component {
+    
     render() {
-        const issueRows = issues.map(issue =>
-                <IssueRow key={issue.id} rowStyle={rowStyle} issue={issue}/>
-            )
+        this.state = { issues: initialIssues }
+        const issueRows = this.state.issues.map(issue =>
+            <IssueRow key={issue.id} rowStyle={rowStyle} issue={issue}/>
+        )
         const rowStyle = {border: "1px solid silver", padding: 4};
         return (
             <table className="bordered-table">
