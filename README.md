@@ -4,6 +4,8 @@
 
 Notes:
 
+* Listing 3-6 on page 55 is missing a single quote before "New".
+
 ## Chapter 2
 
 Notes:
