@@ -105,6 +105,7 @@ class IssueAdd extends React.Component {
 }
 
 class IssueList extends React.Component {
+
     render() {
         return (
             <React.Fragment>
