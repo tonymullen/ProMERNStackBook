@@ -18,37 +18,89 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var HelloWorld =
+var IssueFilter =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(HelloWorld, _React$Component);
+  _inherits(IssueFilter, _React$Component);
 
-  function HelloWorld() {
-    _classCallCheck(this, HelloWorld);
+  function IssueFilter() {
+    _classCallCheck(this, IssueFilter);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(HelloWorld).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(IssueFilter).apply(this, arguments));
   }
 
-  _createClass(HelloWorld, [{
+  _createClass(IssueFilter, [{
     key: "render",
     value: function render() {
-      var continents = ["Africa", "America", "Asia", "Australia", "Europe"];
-      var helloContinents = Array.from(continents, function (c) {
-        return "Hello ".concat(c);
-      });
-      var message = helloContinents.join(' ');
-      return React.createElement("div", null, React.createElement("div", {
-        title: "Outer div"
-      }, React.createElement("h1", {
-        className: "reddio"
-      }, message)), React.createElement("div", null, React.createElement("h1", {
-        className: "greenio"
-      }, message)));
+      return React.createElement("div", null, "This is a placeholder for the issue filter");
     }
   }]);
 
-  return HelloWorld;
+  return IssueFilter;
 }(React.Component);
 
-var element = React.createElement(HelloWorld, null);
+var IssueTable =
+/*#__PURE__*/
+function (_React$Component2) {
+  _inherits(IssueTable, _React$Component2);
+
+  function IssueTable() {
+    _classCallCheck(this, IssueTable);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(IssueTable).apply(this, arguments));
+  }
+
+  _createClass(IssueTable, [{
+    key: "render",
+    value: function render() {
+      return React.createElement("div", null, "This is a placeholder for the table of issues.");
+    }
+  }]);
+
+  return IssueTable;
+}(React.Component);
+
+var IssueAdd =
+/*#__PURE__*/
+function (_React$Component3) {
+  _inherits(IssueAdd, _React$Component3);
+
+  function IssueAdd() {
+    _classCallCheck(this, IssueAdd);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(IssueAdd).apply(this, arguments));
+  }
+
+  _createClass(IssueAdd, [{
+    key: "render",
+    value: function render() {
+      return React.createElement("div", null, "This is a placeholder for a form to add an issue.");
+    }
+  }]);
+
+  return IssueAdd;
+}(React.Component);
+
+var IssueList =
+/*#__PURE__*/
+function (_React$Component4) {
+  _inherits(IssueList, _React$Component4);
+
+  function IssueList() {
+    _classCallCheck(this, IssueList);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(IssueList).apply(this, arguments));
+  }
+
+  _createClass(IssueList, [{
+    key: "render",
+    value: function render() {
+      return React.createElement(React.Fragment, null, React.createElement("h1", null, "Issue Tracker"), React.createElement(IssueFilter, null), React.createElement("hr", null), React.createElement(IssueTable, null), React.createElement("hr", null), React.createElement(IssueAdd, null));
+    }
+  }]);
+
+  return IssueList;
+}(React.Component);
+
+var element = React.createElement(IssueList, null);
 ReactDOM.render(element, document.getElementById('content'));
