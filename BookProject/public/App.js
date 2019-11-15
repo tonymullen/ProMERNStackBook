@@ -35,6 +35,11 @@ var initialIssues = [{
   due: new Date('2018-08-30'),
   title: 'Missing bottom border on panel'
 }];
+var sampleIssue = {
+  status: 'New',
+  owner: 'Pieta',
+  title: 'Completion date should be optional'
+};
 
 var IssueFilter =
 /*#__PURE__*/
@@ -63,17 +68,50 @@ function (_React$Component2) {
   _inherits(IssueTable, _React$Component2);
 
   function IssueTable() {
+    var _this;
+
     _classCallCheck(this, IssueTable);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(IssueTable).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(IssueTable).call(this));
+    _this.state = {
+      issues: []
+    };
+    setTimeout(function () {
+      _this.createIssue(sampleIssue);
+    }, 2000);
+    return _this;
   }
 
   _createClass(IssueTable, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.loadData();
+    }
+  }, {
+    key: "loadData",
+    value: function loadData() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        _this2.setState({
+          issues: initialIssues
+        });
+      }, 500);
+    }
+  }, {
+    key: "createIssue",
+    value: function createIssue(issue) {
+      issue.id = this.state.issues.length + 1;
+      issue.created = new Date();
+      var newIssueList = this.state.issues.slice();
+      newIssueList.push(issue);
+      this.setState({
+        issues: newIssueList
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      this.state = {
-        issues: initialIssues
-      };
       var issueRows = this.state.issues.map(function (issue) {
         return React.createElement(IssueRow, {
           key: issue.id,
