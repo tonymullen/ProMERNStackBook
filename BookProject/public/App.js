@@ -18,23 +18,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var initialIssues = [{
-  id: 1,
-  status: 'New',
-  owner: 'Ravan',
-  effort: 5,
-  created: new Date('2018-08-15'),
-  due: undefined,
-  title: 'Error in console when clicking Add'
-}, {
-  id: 2,
-  status: 'Assigned',
-  owner: 'Eddie',
-  effort: 14,
-  created: new Date('2018-08-16'),
-  due: new Date('2018-08-30'),
-  title: 'Missing bottom border on panel'
-}];
+var dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d');
+
+function jsonDateReviver(key, value) {
+  if (dateRegex.test(value)) return new Date(value);
+  return value;
+}
 
 var IssueFilter =
 /*#__PURE__*/
@@ -155,13 +144,41 @@ function (_React$Component3) {
   }, {
     key: "loadData",
     value: function loadData() {
-      var _this3 = this;
+      var query, response, body, result;
+      return regeneratorRuntime.async(function loadData$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              query = "query {\n            issueList {\n                id title status owner\n                created effort due\n            }\n        }";
+              _context.next = 3;
+              return regeneratorRuntime.awrap(fetch('/graphql', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  query: query
+                })
+              }));
 
-      setTimeout(function () {
-        _this3.setState({
-          issues: initialIssues
-        });
-      }, 500);
+            case 3:
+              response = _context.sent;
+              _context.next = 6;
+              return regeneratorRuntime.awrap(response.text());
+
+            case 6:
+              body = _context.sent;
+              result = JSON.parse(body, jsonDateReviver);
+              this.setState({
+                issues: result.data.issueList
+              });
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, null, this);
     }
   }, {
     key: "createIssue",
