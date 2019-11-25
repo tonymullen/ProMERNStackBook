@@ -91,7 +91,7 @@ function (_React$Component2) {
       var issue = {
         owner: form.owner.value,
         title: form.title.value,
-        status: 'New'
+        due: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10)
       };
       this.props.createIssue(issue);
       form.owner.value = "";
@@ -183,13 +183,39 @@ function (_React$Component3) {
   }, {
     key: "createIssue",
     value: function createIssue(issue) {
-      issue.id = this.state.issues.length + 1;
-      issue.created = new Date();
-      var newIssueList = this.state.issues.slice();
-      newIssueList.push(issue);
-      this.setState({
-        issues: newIssueList
-      });
+      var query, response;
+      return regeneratorRuntime.async(function createIssue$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              // issue.id = this.state.issues.length + 1;
+              // issue.created = new Date();
+              // const newIssueList = this.state.issues.slice();
+              // newIssueList.push(issue);
+              // this.setState({ issues: newIssueList });
+              query = "mutation {\n            issueAdd(issue:{\n                title: \"".concat(issue.title, "\",\n                owner: \"").concat(issue.owner, "\",\n                due: \"").concat(issue.due.toISOString(), "\",\n            }) {\n                id\n            }\n        }");
+              console.log(query);
+              _context2.next = 4;
+              return regeneratorRuntime.awrap(fetch('/graphql', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  query: query
+                })
+              }));
+
+            case 4:
+              response = _context2.sent;
+              this.loadData();
+
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, null, this);
     }
   }, {
     key: "render",
