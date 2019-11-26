@@ -4,6 +4,9 @@
 
 Notes:
 
+* GraphQL queries are very sensitive to correct syntax. Careful of double vs single quotes, be sure to include
+any "!" etc. specified in the the schema in your query or the request will fail.
+
 ## Chapter 4
 
 Notes:
