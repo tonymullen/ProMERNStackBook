@@ -115,11 +115,6 @@ class IssueList extends React.Component {
     }
 
     async createIssue(issue) {
-        // issue.id = this.state.issues.length + 1;
-        // issue.created = new Date();
-        // const newIssueList = this.state.issues.slice();
-        // newIssueList.push(issue);
-        // this.setState({ issues: newIssueList });
         const query = `mutation {
             issueAdd(issue:{
                 title: "${issue.title}",
