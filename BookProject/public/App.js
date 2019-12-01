@@ -68,6 +68,67 @@ function IssueRow(props) {
   return React.createElement("tr", null, React.createElement("td", null, issue.id), React.createElement("td", null, issue.status), React.createElement("td", null, issue.owner), React.createElement("td", null, issue.created.toDateString()), React.createElement("td", null, issue.effort), React.createElement("td", null, issue.due ? issue.due.toDateString() : ''), React.createElement("td", null, issue.title));
 }
 
+function graphQLFetch(query) {
+  var variables,
+      response,
+      body,
+      result,
+      error,
+      details,
+      _args = arguments;
+  return regeneratorRuntime.async(function graphQLFetch$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          variables = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+          _context.prev = 1;
+          _context.next = 4;
+          return regeneratorRuntime.awrap(fetch('/graphql', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              query: query,
+              variables: variables
+            })
+          }));
+
+        case 4:
+          response = _context.sent;
+          _context.next = 7;
+          return regeneratorRuntime.awrap(response.text());
+
+        case 7:
+          body = _context.sent;
+          result = JSON.parse(body, jsonDateReviver);
+
+          if (result.errors) {
+            error = result.errors[0];
+
+            if (error.extensions.code == 'BAD_USER_INPUT') {
+              details = error.extensions.exception.errors.join('\n ');
+              alert("".concat(error.message, ":\n ").concat(details));
+            } else {
+              alert("".concat(error.extensions.code, ": ").concat(error.message));
+            }
+          }
+
+          return _context.abrupt("return", result.data);
+
+        case 13:
+          _context.prev = 13;
+          _context.t0 = _context["catch"](1);
+          alert("Error in sending data to server: ".concat(_context.t0.message));
+
+        case 16:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, null, null, [[1, 13]]);
+}
+
 var IssueAdd =
 /*#__PURE__*/
 function (_React$Component2) {
@@ -144,38 +205,27 @@ function (_React$Component3) {
   }, {
     key: "loadData",
     value: function loadData() {
-      var query, response, body, result;
-      return regeneratorRuntime.async(function loadData$(_context) {
+      var query, data;
+      return regeneratorRuntime.async(function loadData$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               query = "query {\n            issueList {\n                id title status owner\n                created effort due\n            }\n        }";
-              _context.next = 3;
-              return regeneratorRuntime.awrap(fetch('/graphql', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  query: query
-                })
-              }));
+              _context2.next = 3;
+              return regeneratorRuntime.awrap(graphQLFetch(query));
 
             case 3:
-              response = _context.sent;
-              _context.next = 6;
-              return regeneratorRuntime.awrap(response.text());
+              data = _context2.sent;
 
-            case 6:
-              body = _context.sent;
-              result = JSON.parse(body, jsonDateReviver);
-              this.setState({
-                issues: result.data.issueList
-              });
+              if (data) {
+                this.setState({
+                  issues: data.issueList
+                });
+              }
 
-            case 9:
+            case 5:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
       }, null, this);
@@ -183,43 +233,27 @@ function (_React$Component3) {
   }, {
     key: "createIssue",
     value: function createIssue(issue) {
-      var query, response;
-      return regeneratorRuntime.async(function createIssue$(_context2) {
+      var query, data;
+      return regeneratorRuntime.async(function createIssue$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              // const query = `mutation {
-              //     issueAdd(issue:{
-              //         title: "${issue.title}",
-              //         owner: "${issue.owner}",
-              //         due: "${issue.due.toISOString()}",
-              //     }) {
-              //         id
-              //     }
-              // }`;
               query = "mutation issueAdd($issue: IssueInputs!) {\n            issueAdd(issue: $issue) {\n                id\n            }\n        }";
-              console.log(query);
-              _context2.next = 4;
-              return regeneratorRuntime.awrap(fetch('/graphql', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  query: query,
-                  variables: {
-                    issue: issue
-                  }
-                })
+              _context3.next = 3;
+              return regeneratorRuntime.awrap(graphQLFetch(query, {
+                issue: issue
               }));
 
-            case 4:
-              response = _context2.sent;
-              this.loadData();
+            case 3:
+              data = _context3.sent;
 
-            case 6:
+              if (data) {
+                this.loadData();
+              }
+
+            case 5:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
       }, null, this);

@@ -4,8 +4,8 @@
 
 Notes:
 
-* GraphQL queries are very sensitive to correct syntax. Careful of double vs single quotes, be sure to include
-any "!" etc. specified in the the schema in your query or the request will fail.
+* GraphQL queries are very sensitive to correct syntax. Careful of double vs single quotes, be sure to include any "!" etc. specified in the the schema in your query or the request will fail.
+* The function shown as `validateIssue(_, { issue })` on the bottom of page 123 and on page 125 is incorrectly named and has the wrong parameters. It should be `issueValidate(issue)` as called at the top of page 126.
 
 ## Chapter 4
 
