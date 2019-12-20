@@ -3,8 +3,13 @@ const express = require('express');
 const { ApolloServer, UserInputError } = require('apollo-server-express');
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
+const { MongoClient } = require('mongodb');
 
+const url = 'mongodb://localhost/issuetracker';
+// See scripts/init.mongo.js for Atlas and mLab URLs
 
+let db;
+let aboutMessage = "Issue Tracker API v1.0";
 
 
 const GraphQLDate = new GraphQLScalarType({
@@ -25,20 +30,47 @@ const GraphQLDate = new GraphQLScalarType({
     },
 });
 
-let aboutMessage = "Issue Tracker API v1.0";
+async function issueList() {
+    // return issuesDB;
+    const issues = await db.collection('issues')
+        .find({}).toArray();
+    return issues;
+}
 
-const issuesDB = [
-    {
-        id: 1, status: 'New', owner: 'Ravan', effort: 5,
-        created: new Date('2019-01-15'), due: undefined,
-        title: 'Error in console when clicking Add',
-    },
-    {
-        id: 2, status: 'Assigned', owner: 'Eddie', effort: 14,
-        created: new Date('2019-01-16'), due: new Date('2019-02-01'),
-        title: 'Missing bottom border on panel',
-    },
-]
+
+async function connectToDb() {
+    const client = new MongoClient(url, {
+        useNewUrlParser: true
+    });
+    await client.connect();
+    console.log('Connected to MongoDB at', url);
+    db = client.db();
+}
+
+(async function() {
+    try {
+        await connectToDb();
+        app.listen(3000, function(){
+            console.log('App started on port 3000');
+        });
+    } catch (err) {
+        console.log('ERROR:', err);
+    }
+})();
+
+
+// const issuesDB = [
+//     {
+//         id: 1, status: 'New', owner: 'Ravan', effort: 5,
+//         created: new Date('2019-01-15'), due: undefined,
+//         title: 'Error in console when clicking Add',
+//     },
+//     {
+//         id: 2, status: 'Assigned', owner: 'Eddie', effort: 14,
+//         created: new Date('2019-01-16'), due: new Date('2019-02-01'),
+//         title: 'Missing bottom border on panel',
+//     },
+// ]
 
 const resolvers = {
     Query: {
@@ -58,9 +90,6 @@ function setAboutMessage(_, { message }) {
     return aboutMessage = message;
 }
 
-function issueList() {
-    return issuesDB;
-}
 
 function validateIssue(issue) {
     const errors = [];
@@ -98,6 +127,6 @@ app.use(express.static('public'));
 
 server.applyMiddleware({ app, path: '/graphql' });
 
-app.listen(3000, function() {
-    console.log('App started on port 3000');
-});
+// app.listen(3000, function() {
+//     console.log('App started on port 3000');
+// });
