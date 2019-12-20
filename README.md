@@ -1,5 +1,10 @@
 # Pro MERN Stack book notes
 
+## Chapter 6
+
+Focus is on running MongoDB and using the `mongo` shell.
+
+
 ## Chapter 5
 
 Notes:
