@@ -1,5 +1,9 @@
 "use strict";
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -68,65 +72,74 @@ function IssueRow(props) {
   return React.createElement("tr", null, React.createElement("td", null, issue.id), React.createElement("td", null, issue.status), React.createElement("td", null, issue.owner), React.createElement("td", null, issue.created.toDateString()), React.createElement("td", null, issue.effort), React.createElement("td", null, issue.due ? issue.due.toDateString() : ''), React.createElement("td", null, issue.title));
 }
 
-function graphQLFetch(query) {
-  var variables,
-      response,
-      body,
-      result,
-      error,
-      details,
-      _args = arguments;
-  return regeneratorRuntime.async(function graphQLFetch$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          variables = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
-          _context.prev = 1;
-          _context.next = 4;
-          return regeneratorRuntime.awrap(fetch('/graphql', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              query: query,
-              variables: variables
-            })
-          }));
+function graphQLFetch(_x) {
+  return _graphQLFetch.apply(this, arguments);
+}
 
-        case 4:
-          response = _context.sent;
-          _context.next = 7;
-          return regeneratorRuntime.awrap(response.text());
+function _graphQLFetch() {
+  _graphQLFetch = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee3(query) {
+    var variables,
+        response,
+        body,
+        result,
+        error,
+        details,
+        _args3 = arguments;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            variables = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
+            _context3.prev = 1;
+            _context3.next = 4;
+            return fetch('http://localhost:3000/graphql', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                query: query,
+                variables: variables
+              })
+            });
 
-        case 7:
-          body = _context.sent;
-          result = JSON.parse(body, jsonDateReviver);
+          case 4:
+            response = _context3.sent;
+            _context3.next = 7;
+            return response.text();
 
-          if (result.errors) {
-            error = result.errors[0];
+          case 7:
+            body = _context3.sent;
+            result = JSON.parse(body, jsonDateReviver);
 
-            if (error.extensions.code == 'BAD_USER_INPUT') {
-              details = error.extensions.exception.errors.join('\n ');
-              alert("".concat(error.message, ":\n ").concat(details));
-            } else {
-              alert("".concat(error.extensions.code, ": ").concat(error.message));
+            if (result.errors) {
+              error = result.errors[0];
+
+              if (error.extensions.code == 'BAD_USER_INPUT') {
+                details = error.extensions.exception.errors.join('\n ');
+                alert("".concat(error.message, ":\n ").concat(details));
+              } else {
+                alert("".concat(error.extensions.code, ": ").concat(error.message));
+              }
             }
-          }
 
-          return _context.abrupt("return", result.data);
+            return _context3.abrupt("return", result.data);
 
-        case 13:
-          _context.prev = 13;
-          _context.t0 = _context["catch"](1);
-          alert("Error in sending data to server: ".concat(_context.t0.message));
+          case 13:
+            _context3.prev = 13;
+            _context3.t0 = _context3["catch"](1);
+            alert("Error in sending data to server: ".concat(_context3.t0.message));
 
-        case 16:
-        case "end":
-          return _context.stop();
+          case 16:
+          case "end":
+            return _context3.stop();
+        }
       }
-    }
-  }, null, null, [[1, 13]]);
+    }, _callee3, null, [[1, 13]]);
+  }));
+  return _graphQLFetch.apply(this, arguments);
 }
 
 var IssueAdd =
@@ -204,60 +217,80 @@ function (_React$Component3) {
     }
   }, {
     key: "loadData",
-    value: function loadData() {
-      var query, data;
-      return regeneratorRuntime.async(function loadData$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              query = "query {\n            issueList {\n                id title status owner\n                created effort due\n            }\n        }";
-              _context2.next = 3;
-              return regeneratorRuntime.awrap(graphQLFetch(query));
+    value: function () {
+      var _loadData = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        var query, data;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                query = "query {\n            issueList {\n                id title status owner\n                created effort due\n            }\n        }";
+                _context.next = 3;
+                return graphQLFetch(query);
 
-            case 3:
-              data = _context2.sent;
+              case 3:
+                data = _context.sent;
 
-              if (data) {
-                this.setState({
-                  issues: data.issueList
-                });
-              }
+                if (data) {
+                  this.setState({
+                    issues: data.issueList
+                  });
+                }
 
-            case 5:
-            case "end":
-              return _context2.stop();
+              case 5:
+              case "end":
+                return _context.stop();
+            }
           }
-        }
-      }, null, this);
-    }
+        }, _callee, this);
+      }));
+
+      function loadData() {
+        return _loadData.apply(this, arguments);
+      }
+
+      return loadData;
+    }()
   }, {
     key: "createIssue",
-    value: function createIssue(issue) {
-      var query, data;
-      return regeneratorRuntime.async(function createIssue$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              query = "mutation issueAdd($issue: IssueInputs!) {\n            issueAdd(issue: $issue) {\n                id\n            }\n        }";
-              _context3.next = 3;
-              return regeneratorRuntime.awrap(graphQLFetch(query, {
-                issue: issue
-              }));
+    value: function () {
+      var _createIssue = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2(issue) {
+        var query, data;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                query = "mutation issueAdd($issue: IssueInputs!) {\n            issueAdd(issue: $issue) {\n                id\n            }\n        }";
+                _context2.next = 3;
+                return graphQLFetch(query, {
+                  issue: issue
+                });
 
-            case 3:
-              data = _context3.sent;
+              case 3:
+                data = _context2.sent;
 
-              if (data) {
-                this.loadData();
-              }
+                if (data) {
+                  this.loadData();
+                }
 
-            case 5:
-            case "end":
-              return _context3.stop();
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
           }
-        }
-      }, null, this);
-    }
+        }, _callee2, this);
+      }));
+
+      function createIssue(_x2) {
+        return _createIssue.apply(this, arguments);
+      }
+
+      return createIssue;
+    }()
   }, {
     key: "render",
     value: function render() {

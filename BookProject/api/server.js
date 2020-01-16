@@ -11,7 +11,6 @@ const url = 'mongodb://localhost/issuetracker';
 let db;
 let aboutMessage = "Issue Tracker API v1.0";
 
-
 const GraphQLDate = new GraphQLScalarType({
     name: 'GraphQLDate',
     description: 'A Date() type in GraphQL is a scalar',
@@ -31,7 +30,6 @@ const GraphQLDate = new GraphQLScalarType({
 });
 
 async function issueList() {
-    // return issuesDB;
     const issues = await db.collection('issues')
         .find({}).toArray();
     return issues;
@@ -46,18 +44,6 @@ async function connectToDb() {
     console.log('Connected to MongoDB at', url);
     db = client.db();
 }
-
-(async function() {
-    try {
-        await connectToDb();
-        app.listen(3000, function(){
-            console.log('App started on port 3000');
-        });
-    } catch (err) {
-        console.log('ERROR:', err);
-    }
-})();
-
 
 const resolvers = {
     Query: {
@@ -91,17 +77,32 @@ function validateIssue(issue) {
     }
 }
 
-function issueAdd(_, { issue }) {
+async function getNextSequence(name) {
+    const result = await db.collection('counters')
+        .findOneAndUpdate(
+            { _id: name },
+            { $inc: { current: 1 } },
+            { returnOriginal: false },
+        );
+        return result.value.current;
+}
+
+async function issueAdd(_, { issue }) {
+    const errors = [];
     validateIssue(issue);
     issue.created = new Date();
-    issue.id = issuesDB.length + 1;
-    if (issue.status == undefined) issue.status = 'New';
-    issuesDB.push(issue);
-    return issue;
+    issue.id = await getNextSequence('issues');
+
+    const result = await db.collection('issues').insertOne(issue);
+
+    const savedIssue = await db.collection('issues')
+        .findOne({ _id: result.insertedId });
+
+    return savedIssue;
 }
 
 const server = new ApolloServer({
-    typeDefs: fs.readFileSync('./server/schema.graphql', 'utf-8'),
+    typeDefs: fs.readFileSync('schema.graphql', 'utf-8'),
     resolvers,
     formatError: error => {
         console.log(error);
@@ -110,7 +111,16 @@ const server = new ApolloServer({
 });
 
 const app = express();
-app.use(express.static('public'));
 
 server.applyMiddleware({ app, path: '/graphql' });
 
+(async function() {
+    try {
+        await connectToDb();
+        app.listen(3000, function(){
+            console.log('AppAPI server started on port 3000');
+        });
+    } catch (err) {
+        console.log('ERROR:', err);
+    }
+})();

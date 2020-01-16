@@ -2,6 +2,8 @@
 
 ## Chapter 7
 
+
+
 ## Chapter 6
 
 This chapter introduces MongoDB. Interacting with the database using the  `mongo` shell and a script-based interface are dealt with.
