@@ -5,6 +5,14 @@
 
 Notes:
 
+* For UI eslint corrections, on page 198, the line:
+
+        function IssueTable({ issue }) {
+
+    Has an error. It should be
+
+        function IssueTable({ issues }) {
+
 * For API eslint corrections, on page 193, the following lines:
 
         errors.push('Field "title" must be at least 3 characters long.');
