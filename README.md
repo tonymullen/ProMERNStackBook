@@ -3,6 +3,22 @@
 ## Chapter 7
 
 
+Notes:
+
+* For API eslint corrections, on page 193, the following lines:
+
+    errors.push('Field "title" must be at least 3 characters long.');
+
+and
+
+    if (issue.status === 'Assigned' && !issue.owner) {
+
+appear to be attributed to the `issueAdd` function. In fact, they are in the body of the `issueValidate` function. Refer to my code in this repository or to the author's code in the book's GitHub repository to confirm where these lines of code belong.
+* The book (and the authors code on GitHub) both have the `.eslintrc` file containing the line:
+
+    "node": "true"
+
+I've found that eslint complains that the `"true"` value should be a boolean, `true`. You can get rid of this warning by making this change.
 
 ## Chapter 6
 
