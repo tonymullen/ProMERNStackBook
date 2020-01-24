@@ -6,7 +6,7 @@ In Chapter 7 we began to structure the project in a more appropriate way to a sc
 
 The second half of the chapter introduces the linter we'll use, ESLint, which will help us enforce good coding style. We'll make a number of changes to the code so far to conform to best current JS practices, including using the `=>` operator consistently for anonymous functions and using "destructuring" to streamline references to object attributes.
 
-In your own readme update for chapter 7, include screenshots from your own environment that correspond to the following:
+In your own readme update for chapter 7, include screenshots from your own environment that correspond to the following, showing clean linter runs on both the API and UI side:
 
 ![ch7](/readme_images/ch07_1.png)
 
