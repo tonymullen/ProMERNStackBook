@@ -1,5 +1,9 @@
 "use strict";
 
+var _graphQLFetch = _interopRequireDefault(require("./graphQLFetch.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -22,13 +26,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d');
-
-function jsonDateReviver(key, value) {
-  if (dateRegex.test(value)) return new Date(value);
-  return value;
-}
-
+// eslint-disable-next-line react/prefer-stateless-function
 var IssueFilter =
 /*#__PURE__*/
 function (_React$Component) {
@@ -50,96 +48,22 @@ function (_React$Component) {
   return IssueFilter;
 }(React.Component);
 
-function IssueTable(props) {
-  var issueRows = props.issues.map(function (issue) {
+function IssueTable(_ref) {
+  var issues = _ref.issues;
+  var issueRows = issues.map(function (issue) {
     return React.createElement(IssueRow, {
       key: issue.id,
-      rowStyle: rowStyle,
       issue: issue
     });
   });
-  var rowStyle = {
-    border: "1px solid silver",
-    padding: 4
-  };
   return React.createElement("table", {
     className: "bordered-table"
   }, React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "ID"), React.createElement("th", null, "Status"), React.createElement("th", null, "Owner"), React.createElement("th", null, "Created"), React.createElement("th", null, "Effort"), React.createElement("th", null, "Due Date"), React.createElement("th", null, "Title"))), React.createElement("tbody", null, issueRows));
 }
 
-function IssueRow(props) {
-  var issue = props.issue;
+function IssueRow(_ref2) {
+  var issue = _ref2.issue;
   return React.createElement("tr", null, React.createElement("td", null, issue.id), React.createElement("td", null, issue.status), React.createElement("td", null, issue.owner), React.createElement("td", null, issue.created.toDateString()), React.createElement("td", null, issue.effort), React.createElement("td", null, issue.due ? issue.due.toDateString() : ''), React.createElement("td", null, issue.title));
-}
-
-function graphQLFetch(_x) {
-  return _graphQLFetch.apply(this, arguments);
-}
-
-function _graphQLFetch() {
-  _graphQLFetch = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee3(query) {
-    var variables,
-        response,
-        body,
-        result,
-        error,
-        details,
-        _args3 = arguments;
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            variables = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
-            _context3.prev = 1;
-            _context3.next = 4;
-            return fetch(window.ENV.UI_API_ENDPOINT, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                query: query,
-                variables: variables
-              })
-            });
-
-          case 4:
-            response = _context3.sent;
-            _context3.next = 7;
-            return response.text();
-
-          case 7:
-            body = _context3.sent;
-            result = JSON.parse(body, jsonDateReviver);
-
-            if (result.errors) {
-              error = result.errors[0];
-
-              if (error.extensions.code == 'BAD_USER_INPUT') {
-                details = error.extensions.exception.errors.join('\n ');
-                alert("".concat(error.message, ":\n ").concat(details));
-              } else {
-                alert("".concat(error.extensions.code, ": ").concat(error.message));
-              }
-            }
-
-            return _context3.abrupt("return", result.data);
-
-          case 13:
-            _context3.prev = 13;
-            _context3.t0 = _context3["catch"](1);
-            alert("Error in sending data to server: ".concat(_context3.t0.message));
-
-          case 16:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3, null, [[1, 13]]);
-  }));
-  return _graphQLFetch.apply(this, arguments);
 }
 
 var IssueAdd =
@@ -167,9 +91,10 @@ function (_React$Component2) {
         title: form.title.value,
         due: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10)
       };
-      this.props.createIssue(issue);
-      form.owner.value = "";
-      form.title.value = "";
+      var createIssue = this.props.createIssue;
+      createIssue(issue);
+      form.owner.value = '';
+      form.title.value = '';
     }
   }, {
     key: "render",
@@ -185,12 +110,18 @@ function (_React$Component2) {
         type: "text",
         name: "title",
         placeholder: "Title"
-      }), React.createElement("button", null, "Add"));
+      }), React.createElement("button", {
+        type: "submit"
+      }, "Add"));
     }
   }]);
 
   return IssueAdd;
 }(React.Component);
+
+IssueAdd.propTypes = {
+  createIssue: PropTypes.func.isRequired
+};
 
 var IssueList =
 /*#__PURE__*/
@@ -228,7 +159,7 @@ function (_React$Component3) {
               case 0:
                 query = "query {\n            issueList {\n                id title status owner\n                created effort due\n            }\n        }";
                 _context.next = 3;
-                return graphQLFetch(query);
+                return (0, _graphQLFetch.default)(query);
 
               case 3:
                 data = _context.sent;
@@ -266,7 +197,7 @@ function (_React$Component3) {
               case 0:
                 query = "mutation issueAdd($issue: IssueInputs!) {\n            issueAdd(issue: $issue) {\n                id\n            }\n        }";
                 _context2.next = 3;
-                return graphQLFetch(query, {
+                return (0, _graphQLFetch.default)(query, {
                   issue: issue
                 });
 
@@ -285,7 +216,7 @@ function (_React$Component3) {
         }, _callee2, this);
       }));
 
-      function createIssue(_x2) {
+      function createIssue(_x) {
         return _createIssue.apply(this, arguments);
       }
 
@@ -294,8 +225,9 @@ function (_React$Component3) {
   }, {
     key: "render",
     value: function render() {
+      var issues = this.state.issues;
       return React.createElement(React.Fragment, null, React.createElement("h1", null, "Issue Tracker"), React.createElement(IssueFilter, null), React.createElement("hr", null), React.createElement(IssueTable, {
-        issues: this.state.issues
+        issues: issues
       }), React.createElement("hr", null), React.createElement(IssueAdd, {
         createIssue: this.createIssue
       }));
