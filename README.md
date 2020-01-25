@@ -1,5 +1,13 @@
 # Pro MERN Stack book notes
 
+## Chapter 8
+
+Modularization and Webpack
+
+### Chapter 8 notes and errors:
+
+* At the end of page 204 the author foreshadows a change that you will make in `server.js`. Be aware that the actual line you'll add is a bit different than what's shown here, as the `graphql_date.js` actually needs to be `./graphql_date.js`. The correct change is given on page 206.
+
 ## Chapter 7
 
 In Chapter 7 we began to structure the project in a more appropriate way to a scalable client/server application, essentially breaking the project into an API server and a separate UI server, each of which we're treating as independent, loosely coupled applications in their own right.
