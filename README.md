@@ -1,5 +1,13 @@
 # Pro MERN Stack book notes
 
+## Chapter 9
+
+React router
+
+### Chapter 9 notes and errors:
+
+* Nothing so far.
+
 ## Chapter 8
 
 Chapter 8 continues restructuring the application in a way that is more scalable and maintainable. We do this by breaking the UI code out of App.jsx and into separate files for individual components, and loading these files as modules. This will make a complex project much easier to navigate.
