@@ -2,11 +2,18 @@
 
 ## Chapter 8
 
-Modularization and Webpack
+Chapter 8 continues restructuring the application in a way that is more scalable and maintainable. We do this by breaking the UI code out of App.jsx and into separate files for individual components, and loading these files as modules. This will make a complex project much easier to navigate.
+
+In addition to breaking the code into modules, Chapter 8 also introduces webpack, a tool for module bundling and deployment.
+
+In your readme screenshot for Chapter 8, include the browser console. It should be displaying the Webpack Hot Module Replacement logging as shown here:
+
+![ch8](/readme_images/ch08.png)
 
 ### Chapter 8 notes and errors:
 
 * At the end of page 204 the author foreshadows a change that you will make in `server.js`. Be aware that the actual line you'll add is a bit different than what's shown here, as the `graphql_date.js` actually needs to be `./graphql_date.js`. The correct change is given on page 206.
+* On page 227, the line `devtool: 'source-map'` will raise an ESLint error if there is not a trailing comma at the end.
 
 ## Chapter 7
 
