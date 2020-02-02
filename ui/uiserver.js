@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const proxy = require('http-proxy-middleware');
 
@@ -39,6 +40,10 @@ app.get('/env.js', (req, res) => {
   // eliminate a content-type related error in Firefox console.
   res.set('Content-Type', 'application/javascript');
   res.send(`window.ENV = ${JSON.stringify(env)}`);
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('public/index.html'));
 });
 
 const port = process.env.UI_SERVER_PORT || 8000;

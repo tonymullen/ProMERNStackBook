@@ -13,6 +13,7 @@ type Issue {
     id: Int!
     title: String!
     status: StatusType!
+    description: String
     owner: String
     effort: Int
     created: GraphQLDate!
@@ -24,6 +25,7 @@ input IssueInputs {
     title: String!
     "Optional, if not supplied it will be set to 'New'"
     status: StatusType = New
+    description: String
     owner: String
     effort: Int
     due: GraphQLDate
@@ -34,6 +36,7 @@ input IssueInputs {
 type Query {
     about: String!
     issueList(status: StatusType): [Issue!]!
+    issue(id: Int!): Issue!
 }
 
 type Mutation {
