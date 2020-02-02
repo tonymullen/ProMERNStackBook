@@ -2,7 +2,7 @@
 
 ## Chapter 10
 
-In this
+In this chapter we look at React forms that enable the application to be aware of user input and update its state in real time.
 
 ### Chapter 10 notes and errors:
 
