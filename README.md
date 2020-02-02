@@ -2,11 +2,27 @@
 
 ## Chapter 9
 
-React router
+In this chapter we set up routing for a single page application using React's router component. In particular we implement a description display that will be shown when an individual issue is selected.
+
+Your screenshot from this chapter should show this functionality in action, like this:
+
+![ch8](/readme_images/ch09.png)
 
 ### Chapter 9 notes and errors:
 
-* Nothing so far.
+* On page 255, the book states that you should be able to test the API in GraphQL playground, but does not include a reminder how to do that. To test this, go to `localhost:3000/graphql/` and enter
+
+        query issue($id: Int!) {
+            issue (id: $id) {
+                id description
+            }
+        }
+
+    in the query window (upper left text area). In the "Query Variables" window below, you must enter
+
+        { "id": 1 }
+
+    (Or whatever actual ID number corresponds to the issue you wish to retrieve.)
 
 ## Chapter 8
 
