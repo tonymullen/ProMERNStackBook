@@ -82,9 +82,9 @@ This chapter introduces MongoDB. Interacting with the database using the  `mongo
 
 ### Chapter 6 notes and errors:
 
-* Installing MongoDB is straightforward and instructions can be found [here][https://docs.mongodb.com/manual/administration/install-community/]. However, a step that people frequently overlook is to create the '/data/db' directories in your computer's root directory. That step is described [here][https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#create-database-directory] for Windows but may also be necessary for OS X, depending on how you install MongoDB.
+* Installing MongoDB is straightforward and instructions can be found [here](https://docs.mongodb.com/manual/administration/install-community/). However, a step that people frequently overlook is to create the '/data/db' directories in your computer's root directory. That step is described [here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#create-database-directory) for Windows but may also be necessary for OS X, depending on how you install MongoDB.
 * Your MongoDB server is launched with the `mongod` command, and should always be running whenever you wish to use the database. Note that this is not the `mongo` command, which you use to run the client to communicate with the database.
-* Several nice GUI interfaces are available for working with MongoDB, and I highly recommend you use one. My favorite is [Robo3T][https://robomongo.org/].
+* Several nice GUI interfaces are available for working with MongoDB, and I highly recommend you use one. My favorite is [Robo3T](https://robomongo.org/).
 
 
 ## Chapter 5
