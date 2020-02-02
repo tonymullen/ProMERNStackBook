@@ -1,5 +1,21 @@
 # Pro MERN Stack book notes
 
+## Chapter 10
+
+In this
+
+### Chapter 10 notes and errors:
+
+* On page 269 about a third of the way down the page in the fifth line of code displayed, there is a typographical error. A pair of single quotes is incorrectly displayed as a single double-quote character. This should be a pair of single quotes representing an empty string, like this:
+
+        status: params.get('status') || '',
+
+* The same issue occurs near the top of page 270. The correct code is:
+
+        search: status ? `?status=${status}` : '',
+
+* The issue repeats a few times more in this chapter. Be aware that any appearance of a print-typograpic style open double quote character should be an empty string.
+
 ## Chapter 9
 
 In this chapter we set up routing for a single page application using React's router component. In particular we implement a description display that will be shown when an individual issue is selected.
