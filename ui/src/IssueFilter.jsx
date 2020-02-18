@@ -1,6 +1,7 @@
 import React from 'react';
 import URLSearchParams from 'url-search-params';
 import { withRouter } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 /* eslint "react/prefer-stateless-function": "off" */
 
 class IssueFilter extends React.Component {
@@ -95,14 +96,17 @@ class IssueFilter extends React.Component {
           value={effortMax}
           onChange={this.onChangeEffortMax}
         />
-        <button type="button" onClick={this.applyFilter}>Apply</button>
-        <button
+        <Button bsStyle="prrimary" type="button" onClick={this.applyFilter}>
+          Apply
+        </Button>
+        {' '}
+        <Button
           type="button"
           onClick={this.showOriginalFilter}
           disabled={!changed}
         >
           Reset
-        </button>
+        </Button>
       </div>
     );
   }
