@@ -6,14 +6,6 @@ In this chapter we look at React-Bootstrap, a UI framework that abstracts away f
 
 ### Chapter 11 notes and errors:
 
-* On page 316, the author describes a command line instruction for linux and Mac as
-
-        $ ln -s ../node_modules/bootstrap/dist public/bootstrap
-
-    However, if the present working directory is `ui` (which is where `public` is located) then there appears to be too many dots at the beginning of the path to `node_modules`. As I have my installation set up, the correct command line is:
-
-        $ ln -s ./node_modules/bootstrap/dist public/bootstrap
-
 * Nothing yet
 
 ## Chapter 10
