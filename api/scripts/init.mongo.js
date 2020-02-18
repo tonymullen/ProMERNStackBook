@@ -15,6 +15,7 @@
 /* eslint no-restricted-globals: "off" */
 
 db.issues.remove({});
+db.deleted_issues.remove({});
 
 const issuesDB = [
   {
@@ -55,6 +56,8 @@ db.issues.createIndex({ id: 1 }, { unique: true });
 db.issues.createIndex({ status: 1 });
 db.issues.createIndex({ owner: 1 });
 db.issues.createIndex({ created: 1 });
+
+db.deleted_issues.createIndex({ id: 1 }, { unique: true });
 
 db.counters.remove({ _id: 'issues' });
 db.counters.insert({ _id: 'issues', current: count });

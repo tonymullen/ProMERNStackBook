@@ -16,6 +16,8 @@ In this chapter we look at React forms that enable the application to be aware o
 
 * The issue repeats a few times more in this chapter. Be aware that any appearance of a print-typograpic style open double quote character should be an empty string.
 
+* On page 306, the text reads "Next we'll connect the API to its resolver within `issue.js` in the API handler." The resolver can be found in thee file `api_handler.js` as indicated in the caption for Listing 10-22.
+
 ## Chapter 9
 
 In this chapter we set up routing for a single page application using React's router component. In particular we implement a description display that will be shown when an individual issue is selected.
