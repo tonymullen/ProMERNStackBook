@@ -4,6 +4,13 @@
 
 In this chapter we look at React forms that enable the application to be aware of user input and update its state in real time.
 
+Include 2 screenshots in your readme entry for this chapter. One of the top page list, and one of the edit page, as shown below:
+
+![ch10](/readme_images/ch10_1.png)
+
+![ch10](/readme_images/ch10_2.png)
+
+
 ### Chapter 10 notes and errors:
 
 * On page 269 about a third of the way down the page in the fifth line of code displayed, there is a typographical error. A pair of single quotes is incorrectly displayed as a single double-quote character. This should be a pair of single quotes representing an empty string, like this:
