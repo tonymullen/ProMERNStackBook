@@ -2,11 +2,25 @@
 
 ## Chapter 11
 
-In this chapter we look at React-Bootstrap, a UI framework that abstracts away from CSS to enable us to easily create professional looking interfaces with minimal visual design skills and knowledge.
+In this chapter we look at React-Bootstrap, a UI framework that abstracts away from CSS to enable us to easily create professional looking interfaces with minimal visual design skills and knowledge. The CSS (and some JavaScript) is included with the Bootstrap files that we add to our project, and we use readymade components and class labels to determine the UI characteristics of our page.
 
 ### Chapter 11 notes and errors:
 
-* Nothing yet
+* On page 329, with the addition of the Grid components, the code in listing 11-8 omits ellipses (`...`) in the `Page()` function that are usually used in the text to indicate code you don't touch. You need to keep the `NavBar` and `Footer` components as they were, so the function should look like this:
+
+        export default function Page() {
+          return (
+            <div>
+              <NavBar />
+              <Grid>
+                <Contents />
+              </Grid>
+              <Footer />
+            </div>
+          );
+        }
+
+* TBD
 
 ## Chapter 10
 
