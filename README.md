@@ -20,7 +20,13 @@ In this chapter we look at React-Bootstrap, a UI framework that abstracts away f
           );
         }
 
-* TBD
+* On page 337, the crossed-out code to be deleted includes the lines
+
+        <option value="">(All)</option>
+        ...
+
+    In fact, this code should be maintained, including the ellided code. If you deleted the code before the `</select>` label you will need to replace it.
+
 
 ## Chapter 10
 
