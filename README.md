@@ -6,7 +6,7 @@ In this chapter we look at React-Bootstrap, a UI framework that abstracts away f
 
 For your screenshot, please include the Create Issue modal as shown:
 
-![ch10](/readme_images/ch11.png)
+![ch11](/readme_images/Ch11.png)
 
 ### Chapter 11 notes and errors:
 
