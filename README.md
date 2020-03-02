@@ -4,6 +4,10 @@
 
 In this chapter we look at React-Bootstrap, a UI framework that abstracts away from CSS to enable us to easily create professional looking interfaces with minimal visual design skills and knowledge. The CSS (and some JavaScript) is included with the Bootstrap files that we add to our project, and we use readymade components and class labels to determine the UI characteristics of our page.
 
+For your screenshot, please include the Create Issue modal as shown:
+
+![ch10](/readme_images/ch11.png)
+
 ### Chapter 11 notes and errors:
 
 * On page 329, with the addition of the Grid components, the code in listing 11-8 omits ellipses (`...`) in the `Page()` function that are usually used in the text to indicate code you don't touch. You need to keep the `NavBar` and `Footer` components as they were, so the function should look like this:
@@ -26,6 +30,12 @@ In this chapter we look at React-Bootstrap, a UI framework that abstracts away f
         ...
 
     In fact, this code should be maintained, including the ellided code. If you deleted the code before the `</select>` label you will need to replace it.
+
+* On page 373, the changes to `IssueList.jsx` should include deleting the line
+
+        this.createIssue = this.createIssue.bind(this);
+
+    However, it appears that the book omits a strike-through line in the code displayed here.
 
 
 ## Chapter 10
