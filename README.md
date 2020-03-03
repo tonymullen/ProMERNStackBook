@@ -11,6 +11,7 @@ Chapter 12 will show you how to combine server-side rendering with client side r
 * On page 378 in listing 12-1 the second to last right curly bracket shown should also have a strikethrough line through it (i.e. needs deleting).
 * On page 379 in Listing 12-3, `rules` needs to be in quotes: `"rules"`. The same errorr occurs in listing 12-2, but is less of an issue since it deals with existing code.
 * In Listing 12-3 on page 379, the terms `error` and `always` should be in double, not single quotes, and `ignorePackages` should also be in double quotes.
+* A small inconsistency from earlier in the book rears its head again. The `id` value in the template (page 398) is listed in the text as `contents`. In my `App.jsx` I have the element to be rendered/hydrated identified as `content`. If these are not the same, the code will not work properly. I suggest going with whatever you have/had in your original `index.html`.
 
 ## Chapter 11
 
