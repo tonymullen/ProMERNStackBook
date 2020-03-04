@@ -26,6 +26,7 @@ Chapter 12 will show you how to combine server-side rendering with client side r
         }
 
     That is, the assigned environment variable name is missing the substring `SERVER`. If this is not correctly set, you will not have the results described at the bottom of page 403.
+* Not an error, but a slight clarification. On page 408, the text states "For example, when you refresh the page /issues you will see that the table header is present, but the table itself is not populated with issues." This is referring to the *page source*, not the displayed DOM. To see the missing data, right click on the page and choose "View Page Source". In that HTML, you should see that the table is not populated by data, because the populating is happening on the client side under React.
 
 
 
