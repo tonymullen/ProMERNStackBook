@@ -3,9 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter, matchPath } from 'react-router-dom';
 
 import Page from '../src/Page.jsx';
-
 import template from './template.js';
-
 import store from '../src/store.js';
 import routes from '../src/routes.js';
 
@@ -17,16 +15,25 @@ async function render(req, res) {
   let initialData;
   if (activeRoute && activeRoute.component.fetchData) {
     const match = matchPath(req.path, activeRoute);
-    initialData = await activeRoute.component.fetchData(match);
+    const index = req.url.indexOf('?');
+    const search = index !== -1 ? req.url.substr(index) : null;
+    initialData = await activeRoute.component.fetchData(match, search);
   }
 
   store.initialData = initialData;
+  const context = {};
   const element = (
-    <StaticRouter location={req.url} context={{}}>
+    <StaticRouter location={req.url} context={context}>
       <Page />
     </StaticRouter>
   );
   const body = ReactDOMServer.renderToString(element);
+
+  if (context.url) {
+    res.redirect(301, context.url);
+  } else {
+    res.send(template(body, initialData));
+  }
 
   res.send(template(body, initialData));
 }

@@ -6,6 +6,13 @@ In this chapter we look at server-side rendering. Server side rendering generate
 
 Chapter 12 will show you how to combine server-side rendering with client side rendering in a way that optimizes the advantages of both.
 
+Making sure that the data rendered on the UI server is consistent with the data rendered by the client is the primary complicating factor in this chapter. Both must share data that has been retrieved by the API.
+
+For your screenshots, please include a shot of the *page source* for the Issues List page with a detail issue selected displayed in the browser as shown below. Note that the table HTML is populated by actual issue data, including the selected issue's description, which is highlighlighted in my screenshot.
+
+![ch12](/readme_images/Ch12_page_source_highlighted.png)
+
+
 ### Chapter 12 notes and errors:
 
 * On page 378 in listing 12-1 the second to last right curly bracket shown should also have a strikethrough line through it (i.e. needs deleting).

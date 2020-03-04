@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 import { Panel } from 'react-bootstrap';
 import URLSearchParams from 'url-search-params';
 
@@ -8,17 +7,64 @@ import IssueTable from './IssueTable.jsx';
 import IssueDetail from './IssueDetail.jsx';
 import graphQLFetch from './graphQLFetch.js';
 import Toast from './Toast.jsx';
+import store from './store.js';
 
 export default class IssueList extends React.Component {
+  static async fetchData(match, search, showError) {
+    const params = new URLSearchParams(search);
+    const vars = { hasSelection: false, selectedId: 0 };
+    if (params.get('status')) vars.status = params.get('status');
+
+    const effortMin = parseInt(params.get('effortMin'), 10);
+    if (!Number.isNaN(effortMin)) vars.effortMin = effortMin;
+    const effortMax = parseInt(params.get('effortMax'), 10);
+    if (!Number.isNaN(effortMax)) vars.effortMax = effortMax;
+
+    const { params: { id } } = match;
+    const idInt = parseInt(id, 10);
+    if (!Number.isNaN(idInt)) {
+      vars.hasSelection = true;
+      vars.selectedId = idInt;
+    }
+
+    const query = `query issueList(
+      $status: StatusType
+      $effortMin: Int
+      $effortMax: Int
+      $hasSelection: Boolean!
+      $selectedId: Int!
+    ) {
+      issueList(
+        status: $status
+        effortMin: $effortMin
+        effortMax: $effortMax
+      ) {
+        id title status owner
+        created effort due
+      }
+      issue(id: $selectedId) @include (if : $hasSelection) {
+        id description
+      }
+    }`;
+
+    const data = await graphQLFetch(query, vars, showError);
+    return data;
+  }
+
   constructor() {
     super();
+    const issues = store.initialData ? store.initialData.issueList : null;
+    const selectedIssue = store.initialData
+      ? store.initialData.issue
+      : null;
+    delete store.initialData;
     this.state = {
-      issues: [],
+      issues,
+      selectedIssue,
       toastVisible: false,
       toastMessage: '',
       toastType: 'info',
     };
-    // this.createIssue = this.createIssue.bind(this);
     this.closeIssue = this.closeIssue.bind(this);
     this.deleteIssue = this.deleteIssue.bind(this);
     this.showSuccess = this.showSuccess.bind(this);
@@ -27,60 +73,28 @@ export default class IssueList extends React.Component {
   }
 
   componentDidMount() {
-    this.loadData();
+    const { issues } = this.state;
+    if (issues == null) this.loadData();
   }
 
   componentDidUpdate(prevProps) {
-    const { location: { search: prevSearch } } = prevProps;
-    const { location: { search } } = this.props;
-    if (prevSearch !== search) {
+    const {
+      location: { search: prevSearch },
+      match: { params: { id: prevId } },
+    } = prevProps;
+    const { location: { search }, match: { params: { id } } } = this.props;
+    if (prevSearch !== search || prevId !== id) {
       this.loadData();
     }
   }
 
   async loadData() {
-    const { location: { search } } = this.props;
-    const params = new URLSearchParams(search);
-    const vars = {};
-    if (params.get('status')) vars.status = params.get('status');
-
-    const effortMin = parseInt(params.get('effortMin'), 10);
-    if (!Number.isNaN(effortMin)) vars.effortMin = effortMin;
-    const effortMax = parseInt(params.get('effortMax'), 10);
-    if (!Number.isNaN(effortMax)) vars.effortMax = effortMax;
-
-    const query = `query issueList(
-      $status: StatusType
-      $effortMin: Int
-      $effortMax: Int
-      ) {
-        issueList (
-          status: $status
-          effortMin: $effortMin
-          effortMax: $effortMax
-        ) {
-                id title status owner
-                created effort due
-            }
-        }`;
-
-    const data = await graphQLFetch(query, vars, this.showError);
+    const { location: { search }, match } = this.props;
+    const data = await IssueList.fetchData(match, search, this.showError);
     if (data) {
-      this.setState({ issues: data.issueList });
+      this.setState({ issues: data.issueList, selectedIssue: data.issue });
     }
   }
-
-  // async createIssue(issue) {
-  //   const query = `mutation issueAdd($issue: IssueInputs!) {
-  //           issueAdd(issue: $issue) {
-  //               id
-  //           }
-  //       }`;
-  //   const data = await graphQLFetch(query, { issue }, this.showError);
-  //   if (data) {
-  //     this.loadData();
-  //   }
-  // }
 
   async closeIssue(index) {
     const query = `mutation issueClose($id: Int!) {
@@ -144,8 +158,9 @@ export default class IssueList extends React.Component {
 
   render() {
     const { issues } = this.state;
+    if (issues == null) return null;
     const { toastVisible, toastType, toastMessage } = this.state;
-    const { match } = this.props;
+    const { selectedIssue } = this.state;
     return (
       <React.Fragment>
         <Panel>
@@ -161,7 +176,7 @@ export default class IssueList extends React.Component {
           closeIssue={this.closeIssue}
           deleteIssue={this.deleteIssue}
         />
-        <Route path={`${match.path}/:id`} component={IssueDetail} />
+        <IssueDetail issue={selectedIssue} />
         <Toast
           showing={toastVisible}
           onDismiss={this.dismissToast}
