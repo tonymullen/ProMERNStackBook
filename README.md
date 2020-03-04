@@ -12,6 +12,23 @@ Chapter 12 will show you how to combine server-side rendering with client side r
 * On page 379 in Listing 12-3, `rules` needs to be in quotes: `"rules"`. The same errorr occurs in listing 12-2, but is less of an issue since it deals with existing code.
 * In Listing 12-3 on page 379, the terms `error` and `always` should be in double, not single quotes, and `ignorePackages` should also be in double quotes.
 * A small inconsistency from earlier in the book rears its head again. The `id` value in the template (page 398) is listed in the text as `contents`. In my `App.jsx` I have the element to be rendered/hydrated identified as `content`. If these are not the same, the code will not work properly. I suggest going with whatever you have/had in your original `index.html`.
+* On page 403, Listing 12-33 indicates the file to edit is `ui/src/render.jsx`. In fact, `render.jsx` is (and should be) located in `ui/server/`.
+* On page 401, the code
+
+        if (!process.env.UI_SERVER_API_ENDPOINT) {
+            process.env.UI_API_ENDPOINT = process.env.UI_API_ENDPOINT;
+        }
+
+    is incorrect. It should read:
+
+        if (!process.env.UI_SERVER_API_ENDPOINT) {
+            process.env.UI_SERVER_API_ENDPOINT = process.env.UI_API_ENDPOINT;
+        }
+
+    That is, the assigned environment variable name is missing the substring `SERVER`. If this is not correctly set, you will not have the results described at the bottom of page 403.
+
+
+
 
 ## Chapter 11
 
