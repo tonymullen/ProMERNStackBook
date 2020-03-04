@@ -1,4 +1,4 @@
-export default function template(body,data) {
+export default function template(body, data) {
   return `<!DOCTYPE HTML>
 <html>
 
