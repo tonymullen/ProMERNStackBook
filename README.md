@@ -7,7 +7,8 @@ Advanced features
 
 ### Chapter 13 notes and errors:
 
-* Nothing so far
+* On page 436, the template string `'Lorem ipsum dolor sit amet, ${i}'` needs to be surrounded by backticks rather than single quotes: ```Lorem ipsum dolor sit amet, ${i}```
+* The random issue creator script on page 436 assigns an integer id number to each issue that must be unique, which is calculated to begin from the number of issues currently in the database. If somehow your database got into a state where there are existing issues with id values that are numerically higher than the total number of issues in the database, this script will crash and fail to add 100 new issues. You'll have to fix these issue IDs manually or delete those issues.
 
 
 ## Chapter 12
