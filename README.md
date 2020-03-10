@@ -2,7 +2,7 @@
 
 ## Chapter 13
 
-Advanced features
+Advanced features. Using composition rather than inheritance for toast. Adding issue counts/report page with advanced Mongo queries.
 
 
 ### Chapter 13 notes and errors:
