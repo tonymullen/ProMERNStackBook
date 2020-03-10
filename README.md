@@ -2,13 +2,20 @@
 
 ## Chapter 13
 
-Advanced features. Using composition rather than inheritance for toast. Adding issue counts/report page with advanced Mongo queries.
+This chapter adds some further functionality to the application. This includes refactoring the toast code to take advantage of the composition pattern rather than inheritance, exploring some advanced Mongo querying to generate a pivot table for reporting purposes, setting up paginated display for larger numbers of issues, setting up undo functionality for issue deletion, and implementing text-based search functionality.
+
+For your Chapter 13 screenshots, please include a screenshot of the issues list page and the report page, as shown below. Your issues list page should also show pagination and search in action as shown below.
+
+![ch13_1](/readme_images/Ch13_1.png)
+
+![ch13_2](/readme_images/Ch13_2.png)
 
 
 ### Chapter 13 notes and errors:
 
 * On page 436, the template string `'Lorem ipsum dolor sit amet, ${i}'` needs to be surrounded by backticks rather than single quotes: ```Lorem ipsum dolor sit amet, ${i}```
 * The random issue creator script on page 436 assigns an integer id number to each issue that must be unique, which is calculated to begin from the number of issues currently in the database. If somehow your database got into a state where there are existing issues with id values that are numerically higher than the total number of issues in the database, this script will crash and fail to add 100 new issues. You'll have to fix these issue IDs manually or delete those issues.
+* On page 467, the line `history.push('/edit/${value}');` should use backticks instead of single quotes. The correct code is ``history.push(`/edit/${value}`);``
 
 
 ## Chapter 12

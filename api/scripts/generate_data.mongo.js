@@ -1,6 +1,6 @@
 /* global db print */
 /* eslint no-restricted-globals: "off" */
-const owners = ['Ravan', 'Eddie', 'Pieta', 'Parvati', 'Victor'];
+const owners = ['Tony', 'Elton', 'Marge', 'Pat', 'Viola'];
 const statuses = ['New', 'Assigned', 'Fixed', 'Closed'];
 
 const initialCount = db.issues.count();
