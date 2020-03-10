@@ -1,5 +1,12 @@
 # Pro MERN Stack book notes
 
+## Chapter 14
+
+Authentication
+
+### Chapter 14 no
+
+
 ## Chapter 13
 
 This chapter adds some further functionality to the application. This includes refactoring the toast code to take advantage of the composition pattern rather than inheritance, exploring some advanced Mongo querying to generate a pivot table for reporting purposes, setting up paginated display for larger numbers of issues, setting up undo functionality for issue deletion, and implementing text-based search functionality.
