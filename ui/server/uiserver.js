@@ -46,7 +46,10 @@ if (!process.env.UI_SERVER_API_ENDPOINT) {
 }
 
 app.get('/env.js', (req, res) => {
-  const env = { UI_API_ENDPOINT: process.env.UI_API_ENDPOINT };
+  const env = {
+    UI_API_ENDPOINT: process.env.UI_API_ENDPOINT,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  };
   // This line is not mentioned in the book, but it is necessary to
   // eliminate a content-type related error in Firefox console.
   res.set('Content-Type', 'application/javascript');
