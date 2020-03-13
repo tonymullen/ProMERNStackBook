@@ -3,12 +3,15 @@ import {
   NavItem, Modal, Button, NavDropdown, MenuItem,
 } from 'react-bootstrap';
 
-export default class SignInNavItem extends React.Component {
+import withToast from './withToast.jsx';
+
+class SignInNavItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showing: false,
       user: { signedIn: false, givenName: '' },
+      disabled: true,
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
@@ -16,9 +19,46 @@ export default class SignInNavItem extends React.Component {
     this.signIn = this.signIn.bind(this);
   }
 
-  signIn() {
+  componentDidMount() {
+    const clientId = window.ENV.GOOGLE_CLIENT_ID;
+    if (!clientId) return;
+    window.gapi.load('auth2', () => {
+      if (!window.gapi.auth2.getAuthInstance()) {
+        window.gapi.auth2.init({ client_id: clientId }).then(() => {
+          this.setState({ disabled: false });
+        });
+      }
+    });
+  }
+
+  async signIn() {
     this.hideModal();
-    this.setState({ user: { signedIn: true, givenName: 'User1' } });
+    const { showError } = this.props;
+    let googleToken;
+    try {
+      const auth2 = window.gapi.auth2.getAuthInstance();
+      const googleUser = await auth2.signIn();
+      // const givenName = googleUser.getBasicProfile().getGivenName();
+      // this.setState({ user: { signedIn: true, givenName } });
+      googleToken = googleUser.getAuthResponse().id_token;
+    } catch (error) {
+      showError(`Error authenticating with Google: ${error.error}`);
+    }
+
+    try {
+      const apiEndpoint = window.ENV.UI_AUTH_ENDPOINT;
+      const response = await fetch(`${apiEndpoint}/signin`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ google_token: googleToken }),
+      });
+      const body = await response.text();
+      const result = JSON.parse(body);
+      const { signedIn, givenName } = result;
+      this.setState({ user: { signedIn, givenName } });
+    } catch (error) {
+      showError(`Error signing into the app: ${error}`);
+    }
   }
 
   signOut() {
@@ -26,6 +66,12 @@ export default class SignInNavItem extends React.Component {
   }
 
   showModal() {
+    const clientId = window.ENV.GOOGLE_CLIENT_ID;
+    const { showError } = this.props;
+    if (!clientId) {
+      showError('Missing environment variable GOOGLE_CLIENT_ID');
+      return;
+    }
     this.setState({ showing: true });
   }
 
@@ -43,7 +89,7 @@ export default class SignInNavItem extends React.Component {
       );
     }
 
-    const { showing } = this.state;
+    const { showing, disabled } = this.state;
     return (
       <>
         <NavItem onClick={this.showModal}>
@@ -54,8 +100,13 @@ export default class SignInNavItem extends React.Component {
             <Modal.Title>Sign in</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Button block bsStyle="primary" onClick={this.signIn}>
-              Sign In
+            <Button
+              block
+              disabled={disabled}
+              bsStyle="primary"
+              onClick={this.signIn}
+            >
+              <img src="https://goo.gl/4yjp6B" alt="Sign In" />
             </Button>
           </Modal.Body>
           <Modal.Footer>
@@ -66,3 +117,5 @@ export default class SignInNavItem extends React.Component {
     );
   }
 }
+
+export default withToast(SignInNavItem);
