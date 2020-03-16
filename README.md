@@ -2,13 +2,23 @@
 
 ## Chapter 14
 
-Authentication
+Chapter 14 deals with setting up user authentication and session management and restricting features and functionality to authenticated users. We'll make use of Google Authentication API to enable users to log in to our app with their Google credentials.
 
-### Chapter 14 no
+For your Chapter 14 screenshot, please include a screenshot of the app with you as a user logged in (notice my name in the upper right corner below). Also, your screenshot should be taken with the domain visible in the URL window, and the domain should read `ui.promernstack.com` rather than `localhost`.
+
+![ch14](/readme_images/ch14.png)
+
+### Chapter 14 notes and errors
 
 * On page 474 you create Google Sign-In API credentials, including a client ID and a client secret. The credentials file can be downloaded as `credentials.json`. Add this to your `.gitignore` file to prevent these from being pushed to GitHub. Always be careful to avoid secret authentication information being inadvertently made public.
-* It appears that the code in listing 14-5 is assuming that `process.env.GOOGLE_CLIENT_ID` is defined. However, there's no code shown that defines this in case it's undefined, as in previous `process.env` environment variables. So the assumption is that your environment variables are being defined in a `.env` file. The `sample.env` file that has been discussed throughout the text will do for these purposes. You should save a copy of `sample.env` in a file called `.env` (note the dot at the beginning of the file name). You should list `.env` in your `.gitignore` file so that it is not pushed to your repo.
+* It appears that the code in listing 14-5 is assuming that `process.env.GOOGLE_CLIENT_ID` is defined. However, there's no code shown that defines this in case it's undefined, as in previous `process.env` environment variables. So the assumption is that your environment variables are being defined in a `.env` file. The `sample.env` file that has been discussed throughout the text will do for these purposes. You should save a copy of `sample.env` in a file called `.env`
+(note the dot at the beginning of the file name). You should list `.env` in your `.gitignore` file so that it is not pushed to your repo.
 * The sign-in button for your modal should feature a "Sign in with Google" image with the Google logo, referenced at `https://goo.gl/4yjp6B`. If you are using Firefox, you may need to disable "Enhanced tracking protection" in order for the image to display. If this protection is enabled, then the `alt` text will display on the button instead of the image.
+* To open `/etc/hosts` in VSC, first
+* Setting up the `promernstack.com` domain may require a hard refresh of your browser once the domain has been whitelisted on the Google Developers Console.
+* The Google Developers Console screen and field you're looking for are shown below (as of March, 2020):
+
+![googledevconsole](/readme_images/GoogleDevConsole.png)
 
 ## Chapter 13
 
