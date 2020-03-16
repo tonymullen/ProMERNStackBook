@@ -14,7 +14,7 @@ For your Chapter 14 screenshot, please include a screenshot of the app with you 
 * It appears that the code in listing 14-5 is assuming that `process.env.GOOGLE_CLIENT_ID` is defined. However, there's no code shown that defines this in case it's undefined, as in previous `process.env` environment variables. So the assumption is that your environment variables are being defined in a `.env` file. The `sample.env` file that has been discussed throughout the text will do for these purposes. You should save a copy of `sample.env` in a file called `.env`
 (note the dot at the beginning of the file name). You should list `.env` in your `.gitignore` file so that it is not pushed to your repo.
 * The sign-in button for your modal should feature a "Sign in with Google" image with the Google logo, referenced at `https://goo.gl/4yjp6B`. If you are using Firefox, you may need to disable "Enhanced tracking protection" in order for the image to display. If this protection is enabled, then the `alt` text will display on the button instead of the image.
-* To open `/etc/hosts` in VSC, first
+* To open `/etc/hosts` in VSC, first open the `File>Open` dialog then press the `/` (slash) key to open another dialog allowing you to specify a directory manually. Write `/etc` into this field to navigate to that directory, then select the `hosts` file to edit it. Don't alter or delete any of the text in this file, simply add one more line to specify the new hostnames.
 * Setting up the `promernstack.com` domain may require a hard refresh of your browser once the domain has been whitelisted on the Google Developers Console.
 * The Google Developers Console screen and field you're looking for are shown below (as of March, 2020):
 
