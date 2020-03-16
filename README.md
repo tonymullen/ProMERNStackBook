@@ -1,5 +1,10 @@
 # Pro MERN Stack book notes
 
+## Chapter 15
+
+In Chapter 15 we deploy our application to the public internet. 
+
+
 ## Chapter 14
 
 Chapter 14 deals with setting up user authentication and session management and restricting features and functionality to authenticated users. We'll make use of Google Authentication API to enable users to log in to our app with their Google credentials.
