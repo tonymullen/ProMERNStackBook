@@ -18,7 +18,7 @@ https://github.com/tonymullen/tracker-ui
 
 Your screenshot for Chapter 15 should include the URL field of your browser with your public URL displayed, and should show the application with a user logged in. At least a few data items should be visible in the screenshot as well:
 
-![ch14](/readme_images/ch15_1.png)
+![ch15](/readme_images/Ch15_1.png)
 
 ### Chapter 15 notes:
 
