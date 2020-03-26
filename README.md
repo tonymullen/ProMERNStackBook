@@ -1,9 +1,44 @@
 # Pro MERN Stack book notes
 
-## Chapter 15
+## Chapter 15: Deployment
 
-In Chapter 15 we deploy our application to the public internet. 
+In Chapter 15 we deploy our application to the public internet. Your readme should include a clickable link directly to your completed and deployed tracker application, like this:
 
+[https://tracker-ui-tonymullen.herokuapp.com](https://tracker-ui-tonymullen.herokuapp.com)
+
+The application should function as expected in all respects.
+
+There are a number of ways to manage the deployment repositories. The book assumes that you do not currently have your project in a Git repo (which you do). You could use submodules for `api` and `ui` but for the purposes of this course the simplest thing is to create a new directory in your project called `deploy` and copy both directories into that directory, then make separate repos out of both of them. Add the `deploy` directory to `.gitignore` so that it **does not** appear in your main project repo.
+
+My deployment repos can be found here:
+
+https://github.com/tonymullen/tracker-api
+
+https://github.com/tonymullen/tracker-ui
+
+Your screenshot for Chapter 15 should include the URL field of your browser with your public URL displayed, and should show the application with a user logged in. At least a few data items should be visible in the screenshot as well:
+
+![ch14](/readme_images/ch15_1.png)
+
+### Chapter 15 notes:
+
+* There have been some changes to the mLab MongoDB user service, and it has merged with MongoDB Atlas. Setting this up separately from Heroku appears to require an enterprise account on Heroku. The better alternative is to set up an mLab database through the Heroku add-ons interface. This involves a small change in your code: the `process.env.DB_URL` value in `db.js` must be changed to `process.env.MONGODB_URI`, which is the name of the environment variable that Heroku sets automatically when the mLab add-on is activated.
+* Common issues in building on Heroku are missing dependencies or other mismatches in initialization. Make sure that all necessary dependencies are in fact present in your `package.json` file. If your application is crashing do a line by line comparison between your own `package.json` file and mine. Make sure your `heroku-postbuild` script is verbatim also.
+* On page 519, the book has you set the `COOKIE_DOMAIN` environment variable as `herokuapp.com`. Most browsers [will not accept cookies from this domain](https://devcenter.heroku.com/articles/cookies-and-herokuapp-com). The result is that your deployed application will not maintain session information and authentication will be lost on a page refresh or change. Since we will not be registering custom domains for our apps, we'll run the apps in proxy mode. To do this, set the `COOKIE_DOMAIN` environment variable for your API Heroku app to the domain of your UI app. In my case, that means running (in the API app directory):
+
+        heroku config:set COOKIE_DOMAIN=tracker-ui-tonymullen.herokuapp.com
+
+* In order to sign out correctly, the domain should be included in the `clearCookie` response from the server. This is located in the API app's `auth.js` file under the `/signout` route definition. Change
+
+        res.clearCookie('jwt')
+
+to
+
+        res.clearCookie('jwt', {
+            domain: process.env.COOKIE_DOMAIN,
+        });
+
+* Finally, I recommend creating a new OAuth 2.0 Client ID for your deployment application. Be sure to add the UI app's URI to the list of authorized URIs.
 
 ## Chapter 14
 
