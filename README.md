@@ -295,6 +295,10 @@ In your own readme update for chapter 7, include screenshots from your own envir
 
 This chapter introduces MongoDB. Interacting with the database using the  `mongo` shell and a script-based interface are dealt with.
 
+In your readme update for chapter 6 include a screen shot of a local terminal running `mongo` on your own machine. Set it to use the issuetracker database and list the collections. The result should look like this:
+
+![ch06](/readme_images/Ch06.png)
+
 ### Chapter 6 notes and errors:
 
 * Installing MongoDB is straightforward and instructions can be found [here](https://docs.mongodb.com/manual/administration/install-community/). However, a step that people frequently overlook is to create the '/data/db' directories in your computer's root directory. That step is described [here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#create-database-directory) for Windows but may also be necessary for OS X, depending on how you install MongoDB.
@@ -306,6 +310,10 @@ This chapter introduces MongoDB. Interacting with the database using the  `mongo
 
 This chapter goes into some slightly more advanced topics of server side request handling. Express is the web server framework build on top of Node, and GraphQL is an query language used to describe requests from a web client to a web server. GraphQL is distinguished from the traditional REST (REpresentative State Transfer) paradigm of web communication.
 
+In your readme update for chapter 5 include a screen shot of the GraphQL "playground" displayed on your machine's localhost, with a successfully answered query as shown here:
+
+![ch05](/readme_images/Ch05.png)
+
 ### Chapter 5 notes and errors:
 
 * GraphQL queries are very sensitive to correct syntax. Careful of double vs single quotes, be sure to include any "!" etc. specified in the the schema in your query or the request will fail.
@@ -313,7 +321,11 @@ This chapter goes into some slightly more advanced topics of server side request
 
 ## Chapter 4
 
-This chapter introduces React's approach to handling model information using state and properties.
+This chapter introduces React's approach to handling model information using state and properties. The main additional functionality you'll introduce here is the ability to create new issues.
+
+In your readme update for chapter 4 include a screen shot of the application so far at the end of the chapter, as displayed on localhost port 3000 on your own machine, like this:
+
+![ch04](/readme_images/Ch04.png)
 
 ### Chapter 4 notes and errors
 
@@ -321,7 +333,11 @@ No issues noted so far.
 
 ## Chapter 3
 
-This chapter introduces the building blocks of a React app, components.
+This chapter introduces the building blocks of a React app, components. You'll begin to put together the basic pieces of the primary functionality of the application, an issue tracker for software developers.
+
+In your own readme update for chapter 3 include a screen shot of the application so far at the end of the chapter, as displayed on localhost port 3000 on your own machine, like this:
+
+![ch03](/readme_images/Ch03.png)
 
 ### Chapter 3 notes and errors:
 
@@ -329,7 +345,12 @@ This chapter introduces the building blocks of a React app, components.
 
 ## Chapter 2
 
-This chapter gives an intro to server-side development with Node and NPM.
+This chapter gives an intro to server-side development with Node and NPM. This will give you an idea of the basics of a node project introduce some of the players: Express, React, and HTML.
+
+In your own readme update for chapter 2 include a screen shot of the Hello World screen displayed on localhost port 3000 on your own machine, like this:
+
+![ch02](/readme_images/Ch02.png)
+
 
 ### Chapter 2 notes and errors:
 
