@@ -35,7 +35,12 @@ git push origin master --tags
 
 Always ensure that your code is working before committing it and before adding more code. You should be manually testing your work frequently so that you don't write too much code to quickly debug it if it's not working properly. In general, you should have `webpack` as you develop, and you should stop and fix anything that makes your application stop working **immediately**. If come to me for troubleshooting help, you can expect me to ask you what you've done since the last time the application was working. **You will make more work for yourself if you keep adding to broken code.**
 
+
+---
+
+
 # Chapter notes
+
 
 ## Chapter 15: Deployment
 
@@ -77,6 +82,10 @@ to
 
 * Finally, I recommend creating a new OAuth 2.0 Client ID for your deployment application. Be sure to add the UI app's URI to the list of authorized URIs.
 
+
+---
+
+
 ## Chapter 14
 
 Chapter 14 deals with setting up user authentication and session management and restricting features and functionality to authenticated users. We'll make use of Google Authentication API to enable users to log in to our app with their Google credentials.
@@ -97,6 +106,10 @@ For your Chapter 14 screenshot, please include a screenshot of the app with you 
 
 ![googledevconsole](/readme_images/GoogleDevConsole.png)
 
+
+---
+
+
 ## Chapter 13
 
 This chapter adds some further functionality to the application. This includes refactoring the toast code to take advantage of the composition pattern rather than inheritance, exploring some advanced Mongo querying to generate a pivot table for reporting purposes, setting up paginated display for larger numbers of issues, setting up undo functionality for issue deletion, and implementing text-based search functionality.
@@ -113,6 +126,9 @@ For your Chapter 13 screenshots, please include a screenshot of the issues list 
 * On page 436, the template string `'Lorem ipsum dolor sit amet, ${i}'` needs to be surrounded by backticks rather than single quotes: ```Lorem ipsum dolor sit amet, ${i}```
 * The random issue creator script on page 436 assigns an integer id number to each issue that must be unique, which is calculated to begin from the number of issues currently in the database. If somehow your database got into a state where there are existing issues with id values that are numerically higher than the total number of issues in the database, this script will crash and fail to add 100 new issues. You'll have to fix these issue IDs manually or delete those issues.
 * On page 467, the line `history.push('/edit/${value}');` should use backticks instead of single quotes. The correct code is ``history.push(`/edit/${value}`);``
+
+
+---
 
 
 ## Chapter 12
@@ -150,6 +166,8 @@ For your screenshots, please include a shot of the *page source* for the Issues 
 * Not an error, but a slight clarification. On page 408, the text states "For example, when you refresh the page /issues you will see that the table header is present, but the table itself is not populated with issues." This is referring to the *page source*, not the displayed DOM. To see the missing data, right click on the page and choose "View Page Source". In that HTML, you should see that the table is not populated by data, because the populating is happening on the client side under React.
 * As of 3/4/2020 GitHub is reporting a security alert on the version of `serialize-javascript` used by the book.
 
+
+---
 
 
 ## Chapter 11
@@ -190,6 +208,9 @@ For your screenshot, please include the Create Issue modal as shown:
     However, it appears that the book omits a strike-through line in the code displayed here.
 
 
+---
+
+
 ## Chapter 10
 
 In this chapter we look at React forms that enable the application to be aware of user input and update its state in real time.
@@ -215,6 +236,10 @@ Include 2 screenshots in your readme entry for this chapter. One of the top page
 
 * On page 306, the text reads "Next we'll connect the API to its resolver within `issue.js` in the API handler." The resolver can be found in thee file `api_handler.js` as indicated in the caption for Listing 10-22.
 
+
+---
+
+
 ## Chapter 9
 
 In this chapter we set up routing for a single page application using React's router component. In particular we implement a description display that will be shown when an individual issue is selected.
@@ -239,6 +264,10 @@ Your screenshot from this chapter should show this functionality in action, like
 
     (Or whatever actual ID number corresponds to the issue you wish to retrieve.)
 
+
+---
+
+
 ## Chapter 8
 
 Chapter 8 continues restructuring the application in a way that is more scalable and maintainable. We do this by breaking the UI code out of App.jsx and into separate files for individual components, and loading these files as modules. This will make a complex project much easier to navigate.
@@ -253,6 +282,10 @@ In your readme screenshot for Chapter 8, include the browser console. It should 
 
 * At the end of page 204 the author foreshadows a change that you will make in `server.js`. Be aware that the actual line you'll add is a bit different than what's shown here, as the `graphql_date.js` actually needs to be `./graphql_date.js`. The correct change is given on page 206.
 * On page 227, the line `devtool: 'source-map'` will raise an ESLint error if there is not a trailing comma at the end.
+
+
+---
+
 
 ## Chapter 7
 
@@ -291,6 +324,10 @@ In your own readme update for chapter 7, include screenshots from your own envir
 
     I've found that eslint complains that the `"true"` value should be a boolean, `true`. You can get rid of this warning by making this change.
 
+
+---
+
+
 ## Chapter 6
 
 This chapter introduces MongoDB. Interacting with the database using the  `mongo` shell and a script-based interface are dealt with.
@@ -306,6 +343,9 @@ In your readme update for chapter 6 include a screen shot of a local terminal ru
 * Several nice GUI interfaces are available for working with MongoDB, and I highly recommend you use one. My favorite is [Robo3T](https://robomongo.org/).
 
 
+---
+
+
 ## Chapter 5
 
 This chapter goes into some slightly more advanced topics of server side request handling. Express is the web server framework build on top of Node, and GraphQL is an query language used to describe requests from a web client to a web server. GraphQL is distinguished from the traditional REST (REpresentative State Transfer) paradigm of web communication.
@@ -319,6 +359,10 @@ In your readme update for chapter 5 include a screen shot of the GraphQL "playgr
 * GraphQL queries are very sensitive to correct syntax. Careful of double vs single quotes, be sure to include any "!" etc. specified in the the schema in your query or the request will fail.
 * The function shown as `validateIssue(_, { issue })` on the bottom of page 123 and on page 125 is incorrectly named and has the wrong parameters. It should be `issueValidate(issue)` as called at the top of page 126.
 
+
+---
+
+
 ## Chapter 4
 
 This chapter introduces React's approach to handling model information using state and properties. The main additional functionality you'll introduce here is the ability to create new issues.
@@ -331,6 +375,10 @@ In your readme update for chapter 4 include a screen shot of the application so 
 
 No issues noted so far.
 
+
+---
+
+
 ## Chapter 3
 
 This chapter introduces the building blocks of a React app, components. You'll begin to put together the basic pieces of the primary functionality of the application, an issue tracker for software developers.
@@ -342,6 +390,10 @@ In your own readme update for chapter 3 include a screen shot of the application
 ### Chapter 3 notes and errors:
 
 * Listing 3-6 on page 55 is missing a single quote before "New".
+
+
+---
+
 
 ## Chapter 2
 
