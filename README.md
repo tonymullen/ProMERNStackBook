@@ -1,4 +1,41 @@
-# Pro MERN Stack book notes
+# Pro MERN Stack 2nd Edition book project
+
+This is my repository for the project described in the book Pro MERN Stack (2nd Ed) by Vasan Subramanian. This readme contains specific instructions for each chapter and questions you will need to answer, as well as chapter-by-chapter notes which will be helpful to you as you work though the book. The notes highlight errors in the text, software version issues, or other places where students frequently hit snags.
+
+Your Readme.md should be structured similarly to this one. Scroll to the bottom of this readme to see some tips on how to use the Markdown notation to get the elements you need.
+
+## Submission checklist
+
+For each chapter, all of the following are required for full credit:
+
+* A submission on Blackboard with a link to your GitHub project page **by the appropriate assignment deadline**. See the course assignment page for details on deadlines and lateness policy.
+* At least 4 Git commits per chapter, with meaningful comments describing what was done
+* A tagged release representing each completed chapter (more on this below)
+* A readme entry for the chapter. Readme chapter entries should be **in descending order, with the latest on top**, and must include:
+  * A description in your own words (>= 80 words) of the functionality you implemented and how it works, and list any challenges or problems you encountered.
+  * A screenshot of the current state of your work (see my chapter notes on this page for each chapter for specifics on what you should include in the screenshot).
+
+
+### Committing and tagging
+
+While working through the book, you should be doing **regular Git commits** (at least 4 per chapter) so I can view the specifics of your progress. This is done like this:
+
+```
+git add .
+git commit -m "your comment here"
+```
+
+Always include a brief but *meaningful* comment. Do not make comments like "blahblah" or "some stuff". [Here's some good advice on commit messages](http://chris.beams.io/posts/git-commit/).
+
+In addition, as you complete each chapter, you should **commit and tag** the release representing that chapter, so I can quickly go to the last commit for each chapter. Look at the releases for this repository to see an example. [Here's the documentation on tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging). You must also push your commits to GitHub and Heroku. Pushing to GitHub (with tags) should look something like this:
+
+```
+git push origin master --tags
+```
+
+Always ensure that your code is working before committing it and before adding more code. You should be manually testing your work frequently so that you don't write too much code to quickly debug it if it's not working properly. In general, you should have `webpack` as you develop, and you should stop and fix anything that makes your application stop working **immediately**. If come to me for troubleshooting help, you can expect me to ask you what you've done since the last time the application was working. **You will make more work for yourself if you keep adding to broken code.**
+
+# Chapter notes
 
 ## Chapter 15: Deployment
 
